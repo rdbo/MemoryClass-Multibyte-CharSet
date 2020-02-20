@@ -71,8 +71,8 @@ PTR Mem::Ex::GetPointer(HANDLE hProc, PTR baseAddress, std::vector<PTR> offsets)
 	PTR addr = baseAddress;
 	for (unsigned int i = 0; i < offsets.size(); ++i)
 	{
-		ReadProcessMemory(hProc, (BYTE*)addr, &addr, sizeof(addr), 0);
 		addr += offsets[i];
+		ReadProcessMemory(hProc, (BYTE*)addr, &addr, sizeof(addr), 0);
 	}
 	return addr;
 }
@@ -92,6 +92,17 @@ DWORD Mem::In::GetCurrentPID()
 PTR Mem::In::GetModuleAddress(const char* moduleName)
 {
 	return (PTR)GetModuleHandle(moduleName);
+}
+
+PTR Mem::In::GetPointer(PTR baseAddress, std::vector<PTR> offsets)
+{
+	PTR addr = baseAddress;
+	for (unsigned int i = 0; i < offsets.size(); ++i)
+	{
+		addr += offsets[i];
+		addr = *(PTR*)addr;
+	}
+	return addr;
 }
 
 bool Mem::In::WriteBuffer(PTR address, const void* value, SIZE_T size)
