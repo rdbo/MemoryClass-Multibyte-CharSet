@@ -11,8 +11,8 @@ namespace Mem
 	namespace Ex
 	{
 		HANDLE GetProcessHandle(DWORD pid);
-		DWORD GetCurrentPID(const TCHAR* processName);
-		PTR GetModuleAddress(const TCHAR* moduleName, DWORD pid);
+		DWORD GetCurrentPID(const char* processName);
+		PTR GetModuleAddress(const char* moduleName, DWORD pid);
 		PTR GetPointer(HANDLE hProc, PTR ptr, std::vector<PTR> offsets);
 		BOOL WriteBuffer(HANDLE hProc, PTR address, const void* value, SIZE_T size);
 		BOOL ReadBuffer(HANDLE hProc, PTR address, void* buffer, SIZE_T size);
